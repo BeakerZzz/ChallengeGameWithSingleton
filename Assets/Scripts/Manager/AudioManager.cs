@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
@@ -12,11 +13,23 @@ public class AudioManager : MonoBehaviour
     public AudioClip ambientClip;
     public AudioClip musicClip;
 
+    [Header("FX“Ù–ß")]
+    public AudioClip deathFXClip;
+    public AudioClip orbFXClip;
+    public AudioClip doorFXClip;
+    public AudioClip startLevelClip;
+    public AudioClip winClip;
+
+
     [Header("ÕÊº““Ù–ß")]
     public AudioClip[] walkStepClips;
     public AudioClip[] crouchStepClips;
     public AudioClip jumpClip;
+    public AudioClip deathClip;
+
     public AudioClip jumpVoiceClip;
+    public AudioClip deathVoiceClip;
+    public AudioClip orbVoiceClips;
 
 
     AudioSource ambientSource;
@@ -24,6 +37,14 @@ public class AudioManager : MonoBehaviour
     AudioSource fxSource;
     AudioSource playerSource;
     AudioSource playerVoiceSource;
+
+    [Header("“Ù∆µªÏ“Ù∆˜")]
+    public AudioMixerGroup ambientGroup;
+    public AudioMixerGroup musicGroup;
+    public AudioMixerGroup FXGroup;
+    public AudioMixerGroup playerGroup;
+    public AudioMixerGroup playerVoiceGroup;
+
 
     private void Awake()
     {
@@ -35,6 +56,7 @@ public class AudioManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
 
         DontDestroyOnLoad(gameObject);
@@ -45,9 +67,16 @@ public class AudioManager : MonoBehaviour
         playerSource = gameObject.AddComponent<AudioSource>();
         playerVoiceSource = gameObject.AddComponent<AudioSource>();
 
+        ambientSource.outputAudioMixerGroup = ambientGroup;
+        musicSource.outputAudioMixerGroup = musicGroup;
+        fxSource.outputAudioMixerGroup = FXGroup;
+        playerSource.outputAudioMixerGroup = playerGroup;
+        playerVoiceSource.outputAudioMixerGroup = playerVoiceGroup;
+
         StartLevelAudio();
 
     }
+
 
     private void StartLevelAudio()
     {
@@ -58,6 +87,23 @@ public class AudioManager : MonoBehaviour
         current.musicSource.clip = current.musicClip;
         current.musicSource.loop = true;
         current.musicSource.Play();
+
+        current.fxSource.clip = current.startLevelClip;
+        current.fxSource.Play();
+    }
+
+    public static void PlayerWonAudio()
+    {
+        current.fxSource.clip = current.winClip;
+        current.fxSource.Play();
+        current.playerSource.Stop();
+        current.playerVoiceSource.Stop();
+    }
+
+    public static void PlayDoorOpenAudio()
+    {
+        current.fxSource.clip = current.doorFXClip;
+        current.fxSource.PlayDelayed(1f);
     }
 
     public static void PlayFootstepAudio()
@@ -85,4 +131,23 @@ public class AudioManager : MonoBehaviour
         current.playerVoiceSource.Play();
     }
 
+    public static void PlayDeathAudio()
+    {
+        current.playerSource.clip = current.deathClip;
+        current.playerSource.Play();
+
+        current.playerVoiceSource.clip = current.deathVoiceClip;
+        current.playerVoiceSource.Play();
+
+        current.fxSource.clip = current.deathFXClip;
+        current.fxSource.Play();
+    }
+
+    public static void PlayOrbAudio()
+    {
+        current.fxSource.clip = current.orbFXClip;
+        current.fxSource.Play();
+        current.playerVoiceSource.clip = current.orbVoiceClips;
+        current.playerVoiceSource.Play();
+    }
 }

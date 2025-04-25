@@ -24,7 +24,6 @@ public class InputLifecycleManager
 
     public void AddInputLifecycle(string actionName)
     {
-        
         inputLifecycles.Add(actionName, 0f);
     }
     public bool GetPressed(string actionName)
