@@ -8164,7 +8164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 0}
-  lastSceneIndex: 3
+  lastSceneIndex: 4
   gameTimeMax: 60
   deathNum: 0
   isGameOver: 0

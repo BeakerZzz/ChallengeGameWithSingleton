@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.U2D.Path;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -108,17 +106,18 @@ public class GameManager : MonoBehaviour
         instance.sceneFader.FadeOut();
         instance.isGameOver = true;
         AudioManager.PlayerWonAudio();
-
-        SceneManager.LoadScene(instance.lastSceneIndex);
+        if(instance.lastSceneIndex == 4)
+            SceneManager.LoadScene(0);
+        else
+            SceneManager.LoadScene(instance.lastSceneIndex);
         instance.gameTime = instance.gameTimeMax;
-        instance.lastSceneIndex++;
         instance.isGameOver = false;
         if(instance.lastSceneIndex == 4)
         {
-            UIManager.hideUI();
+            UIManager.HideUI();
             Destroy(instance.gameObject);
-
         }
+        instance.lastSceneIndex++;
     }
     public static bool IsGameOver()
     {

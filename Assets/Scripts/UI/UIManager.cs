@@ -55,8 +55,9 @@ public class UIManager : MonoBehaviour
         instance.gameOverText.enabled = false;
     }
 
-    public static void hideUI()
+    public static void HideUI()
     {
         instance.canvas.enabled = false;
+        Destroy(instance.gameObject);
     }
 }

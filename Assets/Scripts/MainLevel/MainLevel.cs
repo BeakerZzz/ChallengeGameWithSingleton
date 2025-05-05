@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,7 +17,7 @@ public class MainLevel : MonoBehaviour
     }
     public void PlayOnClick()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void LevelOnClick()
@@ -33,21 +34,22 @@ public class MainLevel : MonoBehaviour
 
     public void Level1OnClick()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void Level2OnClick()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     public void Level3OnClick()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
     public void BackOnClick()
     {
-        GameObject.Find("MainMenu").SetActive(true);
-        GameObject.Find("LevelMenu").SetActive(false);
+        mainMenu.enabled = true;
+        levelMenu.enabled = false;
     }
+
 }
